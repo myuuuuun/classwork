@@ -1,0 +1,865 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx]{jsarticle}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{応用統計HW1}\label{ux5fdcux7528ux7d71ux8a08hw1}
+
+詳細: \url{http://www.stat.t.u-tokyo.ac.jp/~takemura/ouyoutoukei/}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c}{\PYZsh{}\PYZhy{}*\PYZhy{} encoding: utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{Ouyoutoukei HW1}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{display.precision}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{下準備}\label{ux4e0bux6e96ux5099}
+
+データのインポート, 基礎統計量の表示
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c}{\PYZsh{} csvをインポート}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{odakyu\PYZhy{}mansion.csv}\PY{l+s}{\PYZsq{}} \PY{p}{)}
+        \PY{c}{\PYZsh{} 基礎統計量を表示}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+time      bus     walk      price     area      bal     kosuu  \textbackslash{}
+count  185.000  185.000  185.000    185.000  185.000  185.000   178.000   
+mean    27.292    2.465    8.470   2929.730   72.682    9.620    89.449   
+std     14.076    5.277    5.426   2596.096   27.722    6.479   203.317   
+min      3.000    0.000    1.000    630.000   19.120    0.000     1.000   
+25\%     18.000    0.000    4.000   1490.000   56.850    6.000    21.000   
+50\%     26.000    0.000    8.000   2180.000   69.020    8.800    35.000   
+75\%     33.000    0.000   13.000   3580.000   80.990   11.670    73.750   
+max     65.000   26.000   19.000  24800.000  230.720   39.670  2080.000   
+
+         floor       tf     year  
+count  185.000  185.000  185.000  
+mean     3.681    6.454   80.924  
+std      2.703    3.420   18.423  
+min      1.000    2.000    0.000  
+25\%      2.000    4.000   74.000  
+50\%      3.000    5.000   85.000  
+75\%      5.000    8.000   92.000  
+max     14.000   20.000   99.000
+    \end{Verbatim}
+
+    家の向きは東, 西, 南,
+北のダミー変数（0または1。南東の場合、南と東の両方に1）に分解し変換して、
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c}{\PYZsh{} サンプルサイズ}
+        \PY{n}{data\PYZus{}len} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{c}{\PYZsh{} 家の向きはdummyに}
+        \PY{n}{df}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}N}\PY{l+s}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{data\PYZus{}len}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}E}\PY{l+s}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{data\PYZus{}len}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}W}\PY{l+s}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{data\PYZus{}len}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}S}\PY{l+s}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{data\PYZus{}len}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{direction} \PY{o+ow}{in} \PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{N}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{W}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+                \PY{k}{if} \PY{n}{direction} \PY{o+ow}{in} \PY{n+nb}{str}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{muki}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}\PYZob{}0\PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{direction}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c}{\PYZsh{} 先頭10件を表示}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+time  bus  walk  price    area    bal  kosuu  floor  tf muki  year  d\_N  \textbackslash{}
+0     3    0     6   1680   44.60   3.50     19      4   5    S    68    0   
+1     3    0     4   2280   48.87   4.05     12      2   4    S    74    0   
+2     3    0     7   2880   57.00   7.22     26      4   7    S    70    0   
+3     3    0     2   4340   55.25   7.35     44      3   6   SW    92    0   
+4     3    0     6   4980   88.02   8.70     30      4   8   SE    74    0   
+5     3    0     6   9800  121.56   6.71     30      2   3    S    83    0   
+6     5    0     3   1150   19.12   0.00     35      8   8   NE    70    1   
+7     5    0     1   3850   52.08   5.67     21      5   9    S    98    0   
+8     5    0     9   7580   78.60  14.10     68      3   4    W    99    0   
+9     5    0     6  11870  123.29  14.14     26      2   6    E    98    0   
+
+   d\_E  d\_W  d\_S  
+0    0    0    1  
+1    0    0    1  
+2    0    0    1  
+3    0    1    1  
+4    1    0    1  
+5    0    0    1  
+6    1    0    0  
+7    0    0    1  
+8    0    1    0  
+9    1    0    0
+    \end{Verbatim}
+
+    欠損値は平均値で置き換える。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{最小二乗法}\label{ux6700ux5c0fux4e8cux4e57ux6cd5}
+
+被説明変数に与える影響の小さい説明変数を順に取り除いていく。具体的にはp
+\textgreater{} 0.05であるような説明変数を除いていく。\\
+同時に、外れ値の考慮もする。
+
+\subsubsection{最小二乗法その1}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e1}
+
+説明変数13個で最小二乗法を実行すると、
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c}{\PYZsh{} 定数項も加える}
+        \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{,}
+                                \PY{l+s}{\PYZsq{}}\PY{l+s}{bal}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{kosuu}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{floor}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tf}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}N}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}E}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}S}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}W}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{year}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} 普通の最小二乗法}
+        \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} 結果を表示}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.805
+Model:                            OLS   Adj. R-squared:                  0.790
+Method:                 Least Squares   F-statistic:                     54.26
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           1.16e-53
+Time:                        07:21:42   Log-Likelihood:                -1565.3
+No. Observations:                 185   AIC:                             3159.
+Df Residuals:                     171   BIC:                             3204.
+Df Model:                          13                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        659.0401    570.899      1.154      0.250      -467.877  1785.957
+time         -61.1605      7.044     -8.682      0.000       -75.065   -47.256
+bus          -88.3823     21.727     -4.068      0.000      -131.269   -45.495
+walk         -55.4500     20.468     -2.709      0.007       -95.852   -15.048
+area          70.0731      3.379     20.737      0.000        63.403    76.743
+bal          -17.0300     14.871     -1.145      0.254       -46.385    12.325
+kosuu          0.0837      0.477      0.176      0.861        -0.858     1.025
+floor         -2.9003     43.868     -0.066      0.947       -89.493    83.692
+tf           -52.3960     37.057     -1.414      0.159      -125.545    20.753
+d\_N         -867.1676    653.815     -1.326      0.187     -2157.756   423.420
+d\_E         -341.6601    225.624     -1.514      0.132      -787.027   103.707
+d\_S         -684.7974    280.782     -2.439      0.016     -1239.043  -130.552
+d\_W         -247.0280    232.685     -1.062      0.290      -706.333   212.277
+year           9.7516      5.187      1.880      0.062        -0.487    19.990
+==============================================================================
+Omnibus:                      126.693   Durbin-Watson:                   1.586
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2453.138
+Skew:                           2.165   Prob(JB):                         0.00
+Kurtosis:                      20.306   Cond. No.                     1.80e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.8e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+    \end{Verbatim}
+
+    となる。\\
+p値を見ると、kosuu, floorがほとんど無関係であるように見える。\\
+kosuuには外れ値が1つある（kosuu=2080）ので、それを除いてみる。
+
+    \subsubsection{最小二乗法その2}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e2}
+
+外れ値を除き、
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{161}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{161}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+time       57
+bus         0
+walk       15
+price     800
+area     57.2
+bal         0
+kosuu    2080
+floor       1
+tf          4
+muki        S
+year       67
+d\_N         0
+d\_E         0
+d\_W         0
+d\_S         1
+Name: 161, dtype: object
+    \end{Verbatim}
+
+    再び最小二乗法を実行すると、
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bal}\PY{l+s}{\PYZsq{}}\PY{p}{,}
+                                 \PY{l+s}{\PYZsq{}}\PY{l+s}{kosuu}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{floor}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tf}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}N}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}E}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}S}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}W}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{year}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.805
+Model:                            OLS   Adj. R-squared:                  0.790
+Method:                 Least Squares   F-statistic:                     53.92
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           2.63e-53
+Time:                        07:21:42   Log-Likelihood:                -1557.0
+No. Observations:                 184   AIC:                             3142.
+Df Residuals:                     170   BIC:                             3187.
+Df Model:                          13                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        648.1009    571.820      1.133      0.259      -480.681  1776.883
+time         -61.6799      7.087     -8.703      0.000       -75.670   -47.689
+bus          -87.3626     21.797     -4.008      0.000      -130.391   -44.334
+walk         -56.4869     20.541     -2.750      0.007       -97.035   -15.939
+area          70.1205      3.384     20.720      0.000        63.440    76.801
+bal          -16.8531     14.892     -1.132      0.259       -46.250    12.544
+kosuu         -0.3897      0.792     -0.492      0.623        -1.954     1.174
+floor         -2.9617     43.925     -0.067      0.946       -89.670    83.746
+tf           -42.4715     39.401     -1.078      0.283      -120.249    35.306
+d\_N         -890.6252    655.405     -1.359      0.176     -2184.406   403.156
+d\_E         -336.1515    226.034     -1.487      0.139      -782.346   110.043
+d\_S         -688.7604    281.193     -2.449      0.015     -1243.841  -133.680
+d\_W         -222.7084    235.237     -0.947      0.345      -687.070   241.653
+year           9.6658      5.195      1.861      0.065        -0.589    19.920
+==============================================================================
+Omnibus:                      125.689   Durbin-Watson:                   1.592
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2436.830
+Skew:                           2.153   Prob(JB):                         0.00
+Kurtosis:                      20.301   Cond. No.                     1.37e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.37e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+    \end{Verbatim}
+
+    やはりkosuu, floorのp値が大きいので、説明変数から除くと、
+
+    \subsubsection{最小二乗法その3}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{,}
+                                 \PY{l+s}{\PYZsq{}}\PY{l+s}{bal}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tf}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}N}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}E}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}S}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}W}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{year}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.805
+Model:                            OLS   Adj. R-squared:                  0.792
+Method:                 Least Squares   F-statistic:                     64.35
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           4.59e-55
+Time:                        07:21:42   Log-Likelihood:                -1557.1
+No. Observations:                 184   AIC:                             3138.
+Df Residuals:                     172   BIC:                             3177.
+Df Model:                          11                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        647.4256    568.107      1.140      0.256      -473.933  1768.784
+time         -61.7145      7.051     -8.753      0.000       -75.631   -47.797
+bus          -88.0394     21.589     -4.078      0.000      -130.653   -45.426
+walk         -55.9212     20.403     -2.741      0.007       -96.194   -15.649
+area          70.0917      3.349     20.932      0.000        63.482    76.701
+bal          -16.5189     14.746     -1.120      0.264       -45.626    12.588
+tf           -52.1050     27.938     -1.865      0.064      -107.251     3.041
+d\_N         -869.5508    649.087     -1.340      0.182     -2150.753   411.652
+d\_E         -336.5608    222.059     -1.516      0.131      -774.872   101.751
+d\_S         -682.6687    278.482     -2.451      0.015     -1232.352  -132.985
+d\_W         -238.6622    231.247     -1.032      0.303      -695.109   217.784
+year           9.8681      5.142      1.919      0.057        -0.281    20.018
+==============================================================================
+Omnibus:                      125.761   Durbin-Watson:                   1.586
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2414.208
+Skew:                           2.159   Prob(JB):                         0.00
+Kurtosis:                      20.212   Cond. No.                         924.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    \end{Verbatim}
+
+    となる。さらに、balと南向き以外の方角のダミー変数を説明変数から除く。
+
+    \subsubsection{最小二乗法その4}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e4}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tf}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{year}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{d\PYZus{}S}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.799
+Model:                            OLS   Adj. R-squared:                  0.791
+Method:                 Least Squares   F-statistic:                     99.83
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           6.87e-58
+Time:                        07:21:42   Log-Likelihood:                -1559.8
+No. Observations:                 184   AIC:                             3136.
+Df Residuals:                     176   BIC:                             3161.
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        351.2443    548.343      0.641      0.523      -730.929  1433.418
+time         -63.7175      7.012     -9.087      0.000       -77.556   -49.879
+bus          -84.9009     21.357     -3.975      0.000      -127.050   -42.752
+walk         -54.6035     20.293     -2.691      0.008       -94.653   -14.554
+area          69.5406      3.241     21.459      0.000        63.145    75.936
+tf           -58.8849     27.183     -2.166      0.032      -112.531    -5.239
+year           8.3053      5.081      1.634      0.104        -1.723    18.334
+d\_S         -433.0197    250.589     -1.728      0.086      -927.566    61.527
+==============================================================================
+Omnibus:                      134.268   Durbin-Watson:                   1.605
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2841.632
+Skew:                           2.343   Prob(JB):                         0.00
+Kurtosis:                      21.673   Cond. No.                         730.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    \end{Verbatim}
+
+    p値が大きい南向きのダミー変数d\_E、築年数yearも説明変数から除く。
+
+    \subsubsection{最小二乗法その5}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tf}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.791
+Model:                            OLS   Adj. R-squared:                  0.785
+Method:                 Least Squares   F-statistic:                     135.0
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           1.25e-58
+Time:                        07:21:42   Log-Likelihood:                -1563.2
+No. Observations:                 184   AIC:                             3138.
+Df Residuals:                     178   BIC:                             3158.
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        659.1196    411.570      1.601      0.111      -153.066  1471.305
+time         -63.7977      6.742     -9.463      0.000       -77.102   -50.494
+bus          -92.8873     21.396     -4.341      0.000      -135.109   -50.666
+walk         -58.2817     20.499     -2.843      0.005       -98.734   -17.829
+area          69.1817      3.222     21.470      0.000        62.823    75.541
+tf           -46.2762     26.810     -1.726      0.086       -99.183     6.631
+==============================================================================
+Omnibus:                      131.166   Durbin-Watson:                   1.607
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2595.213
+Skew:                           2.288   Prob(JB):                         0.00
+Kurtosis:                      20.820   Cond. No.                         383.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    \end{Verbatim}
+
+    p値が大きいtfを取り除く
+
+    \subsubsection{最小二乗法その6}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e6}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.788
+Model:                            OLS   Adj. R-squared:                  0.783
+Method:                 Least Squares   F-statistic:                     166.1
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           3.96e-59
+Time:                        07:21:42   Log-Likelihood:                -1564.7
+No. Observations:                 184   AIC:                             3139.
+Df Residuals:                     179   BIC:                             3155.
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const        326.0739    365.543      0.892      0.374      -395.254  1047.401
+time         -64.2877      6.773     -9.492      0.000       -77.653   -50.923
+bus          -95.0077     21.478     -4.423      0.000      -137.391   -52.625
+walk         -52.6312     20.348     -2.587      0.010       -92.783   -12.479
+area          69.2456      3.240     21.373      0.000        62.852    75.639
+==============================================================================
+Omnibus:                      133.686   Durbin-Watson:                   1.557
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2729.285
+Skew:                           2.342   Prob(JB):                         0.00
+Kurtosis:                      21.277   Cond. No.                         338.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    \end{Verbatim}
+
+    修正済みR\^{}2 = 0.783, F統計量のp値3.96e-59
+を見ると、\textbf{「新宿駅からの乗車時間」, 「バスの乗車時間」,
+「徒歩時間」,
+「部屋の広さ」の4つで十分に住宅価格を説明できている}と考えられる。\\
+最小二乗法1〜6と比較しても、AIC・BICは殆ど変わらないか、改善している。
+
+あとは残差を検討して、誤差項に関する諸仮定が満たされているかをチェックする。
+
+    \subsection{残差の分析}\label{ux6b8bux5deeux306eux5206ux6790}
+
+残差に関する仮定は:
+
+\begin{itemize}
+\tightlist
+\item
+  誤差項の平均が0
+\item
+  誤差項の分散が一定
+\item
+  誤差項は互いに独立
+\item
+  誤差項は（少なくとも近似的には）正規分布に従う
+\item
+  誤差項と各説明変数の相関係数は0
+\end{itemize}
+
+であった。\\
+※全ての項目を厳密にチェックする方法を知らないので、出来る項目だけを確認します。
+
+\subsubsection{まずは、横軸に予測値（価格）を、縦軸に残差をとって点をプロットする。}\label{ux307eux305aux306fux6a2aux8ef8ux306bux4e88ux6e2cux5024ux4fa1ux683cux3092ux7e26ux8ef8ux306bux6b8bux5deeux3092ux3068ux3063ux3066ux70b9ux3092ux30d7ux30edux30c3ux30c8ux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c}{\PYZsh{} 回帰に使った変数だけを抜き出す}
+         \PY{n}{new\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{price}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{c}{\PYZsh{} 説明変数行列}
+         \PY{n}{exp\PYZus{}matrix} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{c}{\PYZsh{} 回帰係数ベクトル}
+         \PY{n}{coefs} \PY{o}{=} \PY{n}{results}\PY{o}{.}\PY{n}{params}
+         \PY{c}{\PYZsh{} 理論価格ベクトル}
+         \PY{n}{predicted} \PY{o}{=} \PY{n}{exp\PYZus{}matrix}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{coefs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c}{\PYZsh{}  残差ベクトル}
+         \PY{n}{residuals} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{price} \PY{o}{\PYZhy{}} \PY{n}{predicted}
+         
+         \PY{c}{\PYZsh{} 残差をplot}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals distribution}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{predicted values}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} 残差平均}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals mean:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{residuals}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{HW1_files/HW1_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+residuals mean: -4.152041029832933e-12
+    \end{Verbatim}
+
+    平均はほぼ0であり、グラフでも0付近に点が集中していることがわかる:
+仮定1は満たす
+
+しかしながら、右側にいくつか外れ値が見える。右上の1点を除いて、再度回帰分析を行う。
+
+\subsubsection{最小二乗法その7}\label{ux6700ux5c0fux4e8cux4e57ux6cd5ux305dux306e7}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{p}{)}
+         \PY{n}{new\PYZus{}df} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{price}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+price    24800.00
+time         4.00
+bus          0.00
+walk         8.00
+area       230.72
+Name: 12, dtype: float64
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.790
+Model:                            OLS   Adj. R-squared:                  0.786
+Method:                 Least Squares   F-statistic:                     167.7
+Date:                Thu, 22 Oct 2015   Prob (F-statistic):           3.01e-59
+Time:                        07:21:42   Log-Likelihood:                -1510.6
+No. Observations:                 183   AIC:                             3031.
+Df Residuals:                     178   BIC:                             3047.
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0\% Conf. Int.]
+------------------------------------------------------------------------------
+const       1050.7368    292.682      3.590      0.000       473.164  1628.309
+time         -59.3635      5.298    -11.205      0.000       -69.819   -48.908
+bus          -94.7889     16.739     -5.663      0.000      -127.822   -61.756
+walk         -54.4831     15.859     -3.435      0.001       -85.779   -23.187
+area          56.8131      2.775     20.474      0.000        51.337    62.289
+==============================================================================
+Omnibus:                       30.767   Durbin-Watson:                   1.428
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               70.111
+Skew:                           0.741   Prob(JB):                     5.97e-16
+Kurtosis:                       5.645   Cond. No.                         340.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c}{\PYZsh{} 説明変数行列}
+         \PY{n}{exp\PYZus{}matrix} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{c}{\PYZsh{} 回帰係数ベクトル}
+         \PY{n}{coefs} \PY{o}{=} \PY{n}{results}\PY{o}{.}\PY{n}{params}
+         \PY{c}{\PYZsh{} 理論価格ベクトル}
+         \PY{n}{predicted} \PY{o}{=} \PY{n}{exp\PYZus{}matrix}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{coefs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c}{\PYZsh{}  残差ベクトル}
+         \PY{n}{residuals} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{price} \PY{o}{\PYZhy{}} \PY{n}{predicted}
+         
+         \PY{c}{\PYZsh{} 残差をplot}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals distribution}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{predicted values}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} 残差平均}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals mean:}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{residuals}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{HW1_files/HW1_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+residuals mean: 1.6127378728159302e-12
+    \end{Verbatim}
+
+    最小二乗法6の結果に比べ、ばらつきが均等になった。
+
+    \subsubsection{次に、縦軸に残差、横軸に各説明変数の観測値をとって、残差のばらつきを見る。}\label{ux6b21ux306bux7e26ux8ef8ux306bux6b8bux5deeux6a2aux8ef8ux306bux5404ux8aacux660eux5909ux6570ux306eux89b3ux6e2cux5024ux3092ux3068ux3063ux3066ux6b8bux5deeux306eux3070ux3089ux3064ux304dux3092ux898bux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c}{\PYZsh{} 残差をplot}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exp\PYZus{}matrix}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{time}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals \PYZhy{} time}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{time}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exp\PYZus{}matrix}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{bus}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals \PYZhy{} bus}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{bus}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exp\PYZus{}matrix}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{walk}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals \PYZhy{} walk}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{walk}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{exp\PYZus{}matrix}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{area}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{o}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals \PYZhy{} area}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{area}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{residuals}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{HW1_files/HW1_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    どの説明変数と残差の間にも特徴的な相関関係は見られない: 仮定5は満たす。
+
+area変数だけ残差のばらつき方が異なるので、何らかの対策をとったほうが良い可能性がある（すみません、わかりません）。
+
+    \subsection{まとめ}\label{ux307eux3068ux3081}
+
+    当てはまりの良い回帰モデルを作ることが出来たが、残差の性質、特に等分散性の仮定を置いて良いのかについては問題が残った。等分散性の仮定に問題がある場合は、重みを付けて最小二乗法を使う必要があるので、慎重に考える必要がある。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
