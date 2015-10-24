@@ -1,0 +1,46 @@
+syms x
+solve(x^5-7/6*x^4-x^3+4/3*x^2-1/6 == 0)
+t = -2:0.01:2
+y1 = t.^5-7/6*t.^4-t.^3+4/3*t.^2-1/6
+y2 = 0
+plot(t, y1, t, y2)
+
+p = -2*pi:0.01:2*pi
+y3 = cos(3*p)
+y4 = 1/2*p
+plot(p, y3, p, y4)
+evalin(symengine, 'numeric::solve(cos(3*x) = 1/2*x, x = -2..-1)')
+evalin(symengine, 'numeric::solve(cos(3*x) = 1/2*x, x = -1..0)')
+evalin(symengine, 'numeric::solve(cos(3*x) = 1/2*x, x = 0..1)')
+
+
+
+
+A = [2 -1 0 -1;
+    -1 2 -1 0;
+    0 -1 2 -1;
+    -1 0 -1 2];
+[V,D] = eig(A)
+
+syms lambda
+I = eye(4)
+solve(det(lambda * I - A) == 0)
+
+syms x
+solve((lambda * I - A)*x == 0)
+
+
+
+syms t
+t = linspace(0, 1, 200)
+y5 = sin(2*pi*30*t)
+fftgui(y5)
+
+
+
+function ODE
+  [t, y] = ode45(@eqn, [0,10:10], [1,1]);
+  plot(t, y(:,1))
+
+function f = eqn(t, y)
+  f = [y(2); -0.1*y(2) - 4 * y(1)];

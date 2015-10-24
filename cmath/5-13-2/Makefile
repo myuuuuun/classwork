@@ -1,0 +1,22 @@
+# コンパイルオプションとリンクオプション
+# 自分のディレクトリ構造にあわせて修正してください
+# コンパイルエラーになる場合は，CLFLAGSの2行目を使ってください
+CLFLAGS = -I../include -I/usr/include -Wno-deprecated
+# CLFLAGS = -I../include
+LDFLAGS = -L../lib -lmatrix -framework GLUT -framework OpenGL -Wno-deprecated
+
+# 利用するオブジェクトファイルをまとめて定義
+OBJS = 5-13-2-main.o lagrange.o
+
+# 5-13-2-mainを作成するためのルール
+5-13-2-main: $(OBJS)
+	gcc -o 5-13-2-main $(OBJS) $(LDFLAGS)
+
+# .c から .o ファイルを作成するための一般的ルール
+.c.o:
+	gcc -c $(CLFLAGS) $<
+
+clean:
+	rm -rf *.o
+	rm -rf *.bak
+	rm -rf *.core
