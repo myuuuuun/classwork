@@ -16,7 +16,7 @@ np.set_printoptions(threshold=np.nan)
 
 
 def is_best_response(str_pattern, player_num, players, strategies, payoff_func):
-    str_pattern = list(str_pattern)
+    str_pattern = np.asarray(str_pattern)
     current_payoff = payoff_func(str_pattern)[player_num]
     for new_strategy in strategies:
         new_pattern = str_pattern[:]
@@ -59,7 +59,7 @@ G = <>
 class Imcomplete_information_game():
 
     def __init__():
-        a
+        pass
 
     # 戦略はstateに関係なく同じ
     def find_dominant_strategy():
@@ -180,29 +180,29 @@ if __name__ == '__main__':
     """
 
 
-    """
+    str_max = 35000
+    str_min = 25000
     player_num = 3
-    players = range(player_num)
-    strategies = range(0, 201, 20)
+    players = np.arange(player_num)
+    strategies = np.arange(str_min, str_max+1, 1000)
 
     def payoff_func(str_pattern):
-        # NumPyのargmaxはタイがある場合は最初の1つのindexを返すので、このままで大丈夫
-        max_index = np.argmax(str_pattern)
+        sorted_index = np.argsort(np.copy(str_pattern))
+        payoff = [0 for i in range(9)]
         
-        if max_index == 0:
-            return [180 - str_pattern[0], 0, 0]
+        for rank, index in enumerate(sorted_index):
+            if rank <= 0 or str_pattern[index] == str_pattern[sorted_index[0]]:
+                payoff[index] = str_max - (str_pattern[index] + 5000)
 
-        elif max_index == 1:
-            return [0, 140 - str_pattern[1], 0]
+            elif rank <= 1 or str_pattern[index] == str_pattern[sorted_index[1]]:
+                payoff[index] = str_max - str_pattern[index]
 
-        elif max_index == 2:
-            return [0, 0, 100 - str_pattern[2]]
+            else:
+                payoff[index] = str_max - (str_pattern[index] - 5000)
 
-        else:
-            print("ERROR")
+        return payoff
 
     print(find_nash_equilibrium(players, strategies, payoff_func))
-    """
 
 
 

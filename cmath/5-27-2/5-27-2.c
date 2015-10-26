@@ -6,14 +6,12 @@
 #define INIT_SIZE 50 
 #define SPEED 0.1 
 
-
 void init(void);
 int width, height;
 int right_down;
 int color; // 緑は0，赤なら1
 int is_display; // 0なら描写しない、1なら描写する
 int point_x, point_y;
-
 
 
 void point(void)
