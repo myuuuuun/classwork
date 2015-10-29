@@ -1,141 +1,135 @@
+/*
+Copyright (c) 2015 @myuuuuun
+https://github.com/myuuuuun
+*/
 #include <iostream>
 #include <array>
 #include <cmath>
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#include "matrix.h"
-#include "uglyfont.h"
-#define EPSIRON 1e-5
-#define POINT 5
-#define SPEED 0.01
+#include <limits>
+#define PI 3.1415926535
 using namespace std;
 
-/*
+array<double, 4> f_to_d(array<float, 4> f_array);
+template <class T> array<T, 2> quadratic(T a, T b, T c);
+template <class T>
+  T compute_clash_time(array<T, 4> circle1, array<T, 4> circle2, T radius);
+
+
 int main(){
-  double r, x1, y1, x2, y2, vx1, vy1, vx2, vy2;
+  float radius = 1.0;
+  float distance = 10.0;
+  float rad, cos_rad, sin_rad, clash_time_f;
+  double clash_time_d;
+  array<float, 4> circle1, circle2;
 
-  r = 1;
+  cout.precision(numeric_limits<float>::max_digits10);
+  for(int deg=0; deg<=180; deg++){
+    rad = deg * PI / 180;
+    cos_rad = cos(rad / 2);
+    sin_rad = sin(rad / 2);
 
-  x1 = 0;
-  y1 = 0;
-  vx1 = 0.1;
-  vy1 = 0;
+    circle1[0] = 10 * sin_rad + 1;
+    circle1[1] = 10 * cos_rad;
+    circle1[2] = -10 * sin_rad;
+    circle1[3] = -10 * cos_rad;
 
-  x2 = 10;
-  y2 = 0;
-  vx2 = -0.1;
-  vy2 = 0;
+    circle2[0] = -1 * circle1[0];
+    circle2[1] = -1 * circle1[1];
+    circle2[2] = -1 * circle1[2];
+    circle2[3] = -1 * circle1[3];
 
-  double step = 0.01;
-  for(long t=0; t<10000; t+=1){
-    long distance = sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
-    if(distance < 2*r + EPSIRON){
-      cout << "clash! time is " << t << endl;
-      break;
+    array<double, 4> circle1_d, circle2_d;
+    circle1_d = f_to_d(circle1);
+    circle2_d = f_to_d(circle2);
+
+    clash_time_f = compute_clash_time(circle1, circle2, radius);
+    clash_time_d = compute_clash_time(circle1_d, circle2_d, (double)radius);
+    cout << deg << ", " << abs(clash_time_d - clash_time_f) << endl;
+  }
+  return 0;
+}
+
+
+// ax^2 + bx + c = 0 の形の2次方程式を解く 
+template <class T>
+array<T, 2> quadratic(T a, T b, T c){
+  T x1, x2;
+  T d;
+  array<T, 2> rst;
+
+  // 判別式D < 0ならnanを返す 
+  d = sqrt(pow(b, 2) - 4 * a * c);
+  
+  //cout << b * b << ", " << 4 * a * c << endl;
+  
+  if(isnan(d)){
+    rst[0] = numeric_limits<T>::quiet_NaN();
+    rst[1] = numeric_limits<T>::quiet_NaN();
+    return rst;
+  }
+
+  // 桁落ち防止
+  if(b < 0){
+    x1 = (-1 * b + d) / (2 * a);
+  }
+  else{
+    x1 = (-1 * b - d) / (2 * a);
+  }
+
+  // 解と係数の関係
+  x2 = c / (a * x1);
+  rst[0] = x1;
+  rst[1] = x2;
+
+  return rst;
+}
+
+
+// 2円の半径, 初期位置, 速度（等速）から衝突時刻（最初の1回）を計算
+// circle1, 2: [初期位置x座標, 初期位置y座標, x方向速度, y方向速度]
+template <class T>
+T compute_clash_time(array<T, 4> circle1, array<T, 4> circle2, T radius){
+  T x, y, vx, vy;
+  T clash_time;
+  
+  x = circle1[0] - circle2[0];
+  y = circle1[1] - circle2[1];
+  vx = circle1[2] - circle2[2];
+  vy = circle1[3] - circle2[3];
+
+  cout << x << ", " << y << ", " << vx << ", " << vy << ", "<< endl;
+  cout << pow(x * vy - y * vx, 2) << ", " << 4 * radius * radius * (vx * vx + vy * vy) << endl;
+
+  if(x*x + y*y <= 4*radius*radius){
+    clash_time = 0;
+  }
+  else{
+    array<T, 2> time_list = quadratic(vx*vx+vy*vy, 2*(x*vx+y*vy), x*x+y*y-4*radius*radius);
+
+    if( isnan(time_list[0]) || (time_list[0] < 0 && time_list[1] < 0) ){
+      clash_time = numeric_limits<T>::quiet_NaN();
     }
-
-    x1 += step * vx1;
-    y1 += step * vy1;
-    x2 += step * vx2;
-    y2 += step * vy2;
+    else{
+      if(time_list[0] < 0 || time_list[1] < time_list[0]){
+        clash_time = time_list[1];
+      }
+      else{
+        clash_time = time_list[0];
+      }
+    }
   }
 
-  cout << "finish" << endl;
-
-  return 0;
+  return clash_time;
 }
-*/
 
-// 円を描画する
-void circle(double center_x, double center_y, double radius, array<double, 3> &color){
-  int i, n = 200;
-  double x, y;
 
-  glEnable(GL_LINE_STIPPLE);
-  //glLineStipple(1, 0xACF3);
-  glBegin(GL_POLYGON);
-  glColor3d(color[0], color[1], color[2]);
-  // 円周上の座標(x,y)を計算して円を描画
-  for (i = 0; i < n; i++) {
-    x = radius * cos(2.0 * 3.14 * ((double)i / n) ) + center_x;
-    y = radius * sin(2.0 * 3.14 * ((double)i / n) ) + center_y;
-    glVertex3f(x, y, 0.0);
+// use in main()
+array<double, 4> f_to_d(array<float, 4> f_array){
+  array<double, 4> d_array;
+  for(int i=0; i<4; i++){
+    d_array[i] = f_array[i];
   }
-  glEnd();
-}
-
-// 衝突判定
-bool is_clash()
-
-
-void init(void);
-
-int width, height; //ウィンドウの大きさ
-int current_time; //
-#define TIME_MAX 10000
-
-void display(void)
-{
-  double x_center, y_center;
-  x_center = width / 2.0;
-  y_center = height / 2.0;
-
-  glClear(GL_COLOR_BUFFER_BIT);
-  array<double, 3> c = {0.0, 0.3, 0.3};
-  circle(100, 100, 100, c);
-
-
-
-  glPushMatrix();
-  glTranslatef(200, 200, 0);
-  glScalef(10.0, 10.0, 1.0); 
-  YsDrawUglyFont("UPSIDE-DOWN", 0);
-  glPopMatrix();
-
-
-
-  glutSwapBuffers();
+  return d_array;
 }
 
 
-void reshape(int w, int h)
-{
-  glViewport(0, 0, (GLsizei) w, (GLsizei) h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
-  width = w;
-  height = h;
-}
-
-
-void idle(void){
-  if(current_time < TIME_MAX){
-    current_time += 1;
-  }
-  glutPostRedisplay();
-}
-
-
-void init(void)
-{
-  glClearColor(1.0, 1.0, 1.0, 0.0);
-  size = 1;
-  increase = 1;
-}
-
-
-int main(int argc, char **argv)
-{
-  glutInit(&argc, argv);
-  glutInitWindowSize(800, 450);
-  glutInitDisplayMode(GLUT_DOUBLE);
-  glutCreateWindow(argv[0]);
-  glutDisplayFunc(display);
-  glutReshapeFunc(reshape);
-  glutIdleFunc(idle);
-  init();
-  glutMainLoop();
-
-  return 0;
-}
