@@ -27,10 +27,10 @@ def simulate(x_0, t_step, t_size, rs):
     # loop
     for i in range(1, t_size):
         t = t_0 + i * t_step
-        #rand = -1 if rs.binomial(1, 0.5) == 0 else 1
-        #x = x + x * (2 - x) * t_step + rand * t_step * x
-        rand = rs.normal(0, math.sqrt(t_step))
-        x = x + x * (2 - x) * t_step + x * rand 
+        rand = -1 if rs.binomial(1, 0.5) == 0 else 1
+        x = x + x * (2 - x) * t_step + rand * math.sqrt(t_step) * x
+        #rand = rs.normal(0, math.sqrt(t_step))
+        #x = x + x * (2 - x) * t_step + x * rand 
         path[0][i] = t
         path[1][i] = x
 
