@@ -100,23 +100,18 @@ residual = [[-4.8571429, -8.952381, -3.3333333],
 
 
 if __name__ == '__main__':
-  residual = np.array(residual);
-  size = residual.shape[0]
-  residual_norm = np.zeros(size, dtype=float)
-  for i in range(size):
-    residual_norm[i] = np.linalg.norm(residual[i])
+    residual = np.array(residual);
+    size = residual.shape[0]
+    residual_norm = np.zeros(size, dtype=float)
+    for i in range(size):
+      residual_norm[i] = np.linalg.norm(residual[i])
 
-  plt.title("Jacobi法, 反復毎の残差の推移")
-  x = np.arange(size)
-  plt.plot(x, residual_norm, color='green', label="√(残差2乗和)の推移")
+    plt.title("Jacobi法, 反復毎の残差の推移")
+    x = np.arange(size)
+    plt.plot(x, residual_norm, color='green', label="√(残差2乗和)の推移")
 
-  plt.xlabel("repeats")
-  plt.ylabel("residual(2-norm)")
-  plt.yscale('log')
-  plt.legend()
-  plt.show()
-
-
-
-
-
+    plt.xlabel("repeats")
+    plt.ylabel("residual(2-norm)")
+    plt.yscale('log')
+    plt.legend()
+    plt.show()
