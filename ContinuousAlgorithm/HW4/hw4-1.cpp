@@ -11,7 +11,7 @@ https://github.com/myuuuuun
 const double EPS = 1.0e-12;
 const double PI = 3.1415926535;
 using namespace std;
-using vector2d = vector< vector<double> >;
+using vector2d = vector<vector<double>>;
 
 
 // 汎用taylor 展開テンプレート

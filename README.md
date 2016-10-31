@@ -6,7 +6,6 @@
 * [社会保障（2015年S2）](./SocialSecurity)
 * [プログラミング応用（2015年S12）](./cmath)
 * [生物統計学演習（2015年S12）](./cstat)
-* [メカニズムデザイン（2015年A1）](./mechanism_design)
 * [応用統計学（2015年A12）](./応用統計)
 * [連続系アルゴリズム（2015年A12）](./ContinuousAlgorithm)
 * [Cで試したもの](./C_programs)
